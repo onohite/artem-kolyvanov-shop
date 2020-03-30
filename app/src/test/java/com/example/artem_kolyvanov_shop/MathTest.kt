@@ -7,4 +7,5 @@ class MathTest {
     }
 
 
+    fun divideTest(denominator: Int): Boolean = denominator != 0
 }
