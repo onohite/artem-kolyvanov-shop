@@ -6,8 +6,9 @@ class MathTest {
         return ++num
     }
 
-
     fun divideTest(denominator: Int): Boolean = denominator != 0
 
     fun multiplicationTest (a:Int,b:Int): Any = a*b
+
+    fun subtractionTest(a:Int,b:Int): Any = a-b
 }
