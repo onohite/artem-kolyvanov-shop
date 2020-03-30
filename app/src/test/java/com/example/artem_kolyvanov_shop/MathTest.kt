@@ -8,4 +8,6 @@ class MathTest {
 
 
     fun divideTest(denominator: Int): Boolean = denominator != 0
+
+    fun multiplicationTest (a:Int,b:Int): Any = a*b
 }
