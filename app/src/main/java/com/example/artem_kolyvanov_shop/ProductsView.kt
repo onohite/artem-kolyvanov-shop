@@ -10,5 +10,9 @@ interface ProductsView {
 
     fun print(name: String)
 
-    fun print(name:String,price:Double,discount:Int,newPrice:Double)
+
+    /**
+     * Output in Name - Price - Discount - Result format
+     */
+    fun print(products:List<Product>)
 }

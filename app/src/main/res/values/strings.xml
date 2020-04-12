@@ -5,7 +5,7 @@
     <string name="result">итого</string>
     <string name="payed">ОПЛАТИТЬ</string>
     <string name="phone">Телефон</string>
-    <string name="productName">productName</string>
+    <string name="productName">Имя продукта</string>
     <string name="discount">скидка</string>
     <string name="discountNumber">скидка</string>
     <string name="moneyIcon">moneyIcon</string>
@@ -17,4 +17,5 @@
     <string name="byCard">картой</string>
     <string name="byCash">наличными</string>
     <string name="iconDiscount">iconDiscount</string>
+    <string name="price">цена</string>
 </resources>
