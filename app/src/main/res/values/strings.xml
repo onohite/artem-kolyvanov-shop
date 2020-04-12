@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">artem-kolyvanov-shop</string>
+    <string name="checkout_header">Оформление заказа</string>
+    <string name="moneyOut">итоговая цена</string>
+    <string name="result">итого</string>
+    <string name="payed">ОПЛАТИТЬ</string>
+    <string name="phone">Телефон</string>
+    <string name="productName">productName</string>
+    <string name="discount">скидка</string>
+    <string name="discountNumber">скидка</string>
+    <string name="moneyIcon">moneyIcon</string>
+    <string name="productCost">цена продукта</string>
+    <string name="name">Имя</string>
+    <string name="secondName">Фамилия</string>
+    <string name="phoneNumber">Телефон</string>
+    <string name="payType">Способ оплаты</string>
+    <string name="byCard">картой</string>
+    <string name="byCash">наличными</string>
+    <string name="iconDiscount">iconDiscount</string>
 </resources>
