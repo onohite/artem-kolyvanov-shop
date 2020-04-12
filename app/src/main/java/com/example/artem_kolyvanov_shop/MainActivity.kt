@@ -1,10 +1,15 @@
 package com.example.artem_kolyvanov_shop
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import recyclerViewAdapter
+
 
 class MainActivity : AppCompatActivity(),ProductsView {
 
@@ -13,15 +18,11 @@ class MainActivity : AppCompatActivity(),ProductsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        presenter.productNameAndPricePrint()
-        presenter.productPrint()
-        presenter.consolePrint()
+        presenter.productsPrint()
         checkoutPayButton.setOnClickListener { Toast.makeText(this,"${editText.text}, спасибо за покупку!",Toast.LENGTH_LONG).show()
-        phoneNumber.text.clear()
-        editText.text.clear()
-        editText2.text.clear()}
+            phoneNumber.text.clear()
+            editText.text.clear()
+            editText2.text.clear()}
     }
 
     override fun print(price: Double) {
@@ -35,11 +36,12 @@ class MainActivity : AppCompatActivity(),ProductsView {
         Log.d("Print",name)
     }
 
-    override fun print(name: String, price: Double, discount: Int, newPrice: Double) {
-        productName.text = name
-        productCost.text = price.toString()
-        discountNumber.text = discount.toString()
-        checkoutSumValue.text = newPrice.toString()
+    override fun print(products: List<Product>) {
+        val recyclerView:RecyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL,false)
+
+        val adapter = recyclerViewAdapter(products)
+        recyclerView.setAdapter(adapter)
     }
 
 }
