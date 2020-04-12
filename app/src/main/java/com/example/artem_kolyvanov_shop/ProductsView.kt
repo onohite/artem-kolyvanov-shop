@@ -9,4 +9,6 @@ interface ProductsView {
     fun print(price: Double)
 
     fun print(name: String)
+
+    fun print(name:String,price:Double,discount:Int,newPrice:Double)
 }
