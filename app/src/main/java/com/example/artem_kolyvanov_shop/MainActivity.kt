@@ -3,9 +3,11 @@ package com.example.artem_kolyvanov_shop
 import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 import recyclerViewAdapter
 
 
@@ -17,6 +19,10 @@ class MainActivity : AppCompatActivity(),ProductsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         presenter.productsPrint()
+        checkoutPayButton.setOnClickListener { Toast.makeText(this,"${editText.text}, спасибо за покупку!",Toast.LENGTH_LONG).show()
+            phoneNumber.text.clear()
+            editText.text.clear()
+            editText2.text.clear()}
     }
 
     override fun print(price: Double) {
