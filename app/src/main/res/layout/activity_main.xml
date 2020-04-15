@@ -145,16 +145,30 @@
             app:layout_constraintStart_toStartOf="@+id/checkoutFirstName"
             app:layout_constraintTop_toBottomOf="@+id/checkoutFirstName" />
 
+        <TextView
+            android:id="@+id/phoneHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="@string/phoneHintNumbers"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
         <EditText
             android:id="@+id/phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:autofillHints="''"
+            android:autofillHints="89999999999"
             android:ems="10"
             android:hint="@string/phoneNumber"
             android:inputType="phone"
             app:layout_constraintEnd_toEndOf="@+id/checkoutLastName"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/checkoutLastName"
             app:layout_constraintTop_toBottomOf="@+id/checkoutLastName" />
 
@@ -170,7 +184,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/phoneHint" />
 
         <RadioGroup
             android:layout_width="155dp"
