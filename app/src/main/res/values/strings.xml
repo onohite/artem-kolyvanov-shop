@@ -12,7 +12,7 @@
     <string name="productCost">цена продукта</string>
     <string name="name">Имя</string>
     <string name="secondName">Фамилия</string>
-    <string name="phoneNumber">Телефон</string>
+    <string name="phoneNumber">+79999999999</string>
     <string name="payType">Способ оплаты</string>
     <string name="byCard">картой</string>
     <string name="byCash">наличными</string>

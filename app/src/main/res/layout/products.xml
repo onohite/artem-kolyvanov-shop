@@ -5,28 +5,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/backgroundColor">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/backgroundColor">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundColor">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/productName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="17dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/backgroundColor"
-                android:ems="7"
+                android:ems="6"
+                android:fontFamily="sans-serif-light"
                 android:text="@string/productName"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,10 +33,10 @@
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:background="@color/backgroundColor"
                 android:ems="6"
+                android:fontFamily="sans-serif-light"
                 android:text="@string/productCost"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/productName"
                 app:layout_constraintStart_toEndOf="@+id/productName"
@@ -48,9 +46,11 @@
                 android:id="@+id/discountNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/backgroundColor"
+                android:layout_marginStart="32dp"
                 android:ems="4"
+                android:fontFamily="sans-serif-light"
                 android:text="@string/discountNumber"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/productPrice"
                 app:layout_constraintStart_toEndOf="@+id/productPrice"
@@ -60,9 +60,10 @@
                 android:id="@+id/checkoutSumValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@color/backgroundColor"
+                android:layout_marginStart="45dp"
+                android:fontFamily="sans-serif-light"
                 android:text="@string/moneyOut"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/discountNumber"
                 app:layout_constraintStart_toEndOf="@+id/discountNumber"
