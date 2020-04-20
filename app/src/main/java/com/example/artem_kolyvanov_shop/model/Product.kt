@@ -1,4 +1,4 @@
-package com.example.artem_kolyvanov_shop
+package com.example.artem_kolyvanov_shop.model
 
 class Product(
     /**
