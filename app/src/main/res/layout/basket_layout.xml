@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        android:background="@color/backgroundColor"
+        android:minHeight="740dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/basketHeader"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="#FFFFFF"
+            android:fallbackLineSpacing="false"
+            android:fontFamily="sans-serif-medium"
+            android:hapticFeedbackEnabled="false"
+            android:paddingStart="15dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="15dp"
+            android:text="@string/basketHeader"
+            android:textAlignment="viewStart"
+            android:textColor="@color/backgroundColor"
+            android:textDirection="firstStrongRtl"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/checkout_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/costResult" />
+
+        <ImageView
+            android:id="@+id/resultImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/moneyIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/discount"
+            app:layout_constraintStart_toEndOf="@+id/discount"
+            app:layout_constraintTop_toTopOf="@+id/discount"
+            app:srcCompat="@drawable/ic_money" />
+
+
+        <ImageView
+            android:id="@+id/priceImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:contentDescription="@string/moneyIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/productName"
+            app:layout_constraintStart_toEndOf="@+id/productName"
+            app:layout_constraintTop_toTopOf="@+id/productName"
+            app:layout_constraintVertical_bias="0.4"
+            app:srcCompat="@drawable/ic_money" />
+
+        <TextView
+            android:id="@+id/costResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/result"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/resultImage"
+            app:layout_constraintStart_toEndOf="@+id/resultImage"
+            app:layout_constraintTop_toTopOf="@+id/resultImage"
+            tools:text="итого" />
+
+        <ImageView
+            android:id="@+id/discountImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/iconDiscount"
+            app:layout_constraintBottom_toBottomOf="@+id/price"
+            app:layout_constraintStart_toEndOf="@+id/price"
+            app:layout_constraintTop_toTopOf="@+id/price"
+            app:srcCompat="@drawable/ic_discount" />
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/discount"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/discountImage"
+            app:layout_constraintStart_toEndOf="@+id/discountImage"
+            app:layout_constraintTop_toTopOf="@+id/discountImage"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/price"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/priceImage"
+            app:layout_constraintStart_toEndOf="@+id/priceImage"
+            app:layout_constraintTop_toTopOf="@+id/priceImage" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:ems="6"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/productName"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/basketHeader" />
+
+        <Button
+            android:id="@+id/basketPayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="#000000"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="@string/basketPayButton"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

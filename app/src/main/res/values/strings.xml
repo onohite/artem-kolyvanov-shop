@@ -19,4 +19,9 @@
     <string name="iconDiscount">iconDiscount</string>
     <string name="price">цена</string>
     <string name="phoneHintNumbers">+7(9_ _ ) _ _ _ _ _ _ _</string>
+    <string name="basketHeader">Корзина</string>
+    <string name="basketPayButton">оплатить</string>
+    <string name="Catalog">Каталог</string>
+    <string name="goToBasket">Перейти в корзину</string>
+    <string name="iphoneCase">IphoneCase</string>
 </resources>

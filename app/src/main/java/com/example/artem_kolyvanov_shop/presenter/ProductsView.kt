@@ -1,5 +1,6 @@
-package com.example.artem_kolyvanov_shop
+package com.example.artem_kolyvanov_shop.presenter
 
+import com.example.artem_kolyvanov_shop.model.Product
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
@@ -26,5 +27,4 @@ interface ProductsView: MvpView {
     fun showErrorForFirstName(visible:Boolean)
 
     fun showErrorForPhoneNumber(visible: Boolean)
-
 }
