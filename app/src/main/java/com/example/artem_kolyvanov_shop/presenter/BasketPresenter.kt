@@ -21,34 +21,8 @@ class BasketPresenter : MvpPresenter<ProductsView>() {
         salePercent = 50,
         productName = "Huawei Case"
     )
-    private val products = listOf(iphoneCase,samsungCase,huaweiCase)
+    private val products = mutableListOf(iphoneCase,samsungCase,huaweiCase)
 
-    private val model = CreateOrderModel()
-
-    private fun checkSymbols (text:String):Boolean = text.length < 3
-
-
-
-    private fun checkNumber (number:String):Boolean = number
-        .startsWith('+')
-        .and((number.length == 12) && (number[1] == '7'))
-        .or(number.startsWith('8')
-            .and(number.length == 11))
-
-    fun checkFirstName(text:String){
-        if (!checkSymbols(text) ) model.firstName = text
-        viewState.showErrorForFirstName(checkSymbols(text))
-    }
-
-    fun checkLastName(text:String){
-        if (!checkSymbols(text) ) model.lastName = text
-        viewState.showErrorForLastName(checkSymbols(text))
-    }
-
-    fun checkPhoneNumber(number:String){
-        if (checkNumber(number)) model.phoneNumber = number
-        viewState.showErrorForPhoneNumber(!checkNumber(number))
-    }
 
 fun consolePrint(){
     viewState.print(products.sumByDouble { it.calcDiscountPrice() })
@@ -60,6 +34,20 @@ fun productNamePrint(){
 
 fun productsPrint(){
     viewState.print(products)
+}
+
+fun setData(){
+    viewState.setProducts(products)
+}
+
+fun removeItem(product: Product){
+    val position = products.indexOf(product)
+    products.remove(product)
+    viewState.removeProduct(position)
+}
+
+fun addData(product:Product){
+    viewState.addProduct(product)
 }
 
 fun productNameAndPricePrint(){

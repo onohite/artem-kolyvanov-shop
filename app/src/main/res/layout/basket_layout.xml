@@ -40,21 +40,11 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
             android:background="@color/backgroundColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/costResult" />
-
-        <ImageView
-            android:id="@+id/resultImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/moneyIcon"
-            app:layout_constraintBottom_toBottomOf="@+id/discount"
-            app:layout_constraintStart_toEndOf="@+id/discount"
-            app:layout_constraintTop_toTopOf="@+id/discount"
-            app:srcCompat="@drawable/ic_money" />
+            app:layout_constraintTop_toBottomOf="@+id/discount" />
 
 
         <ImageView
@@ -68,19 +58,6 @@
             app:layout_constraintTop_toTopOf="@+id/productName"
             app:layout_constraintVertical_bias="0.4"
             app:srcCompat="@drawable/ic_money" />
-
-        <TextView
-            android:id="@+id/costResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/result"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/resultImage"
-            app:layout_constraintStart_toEndOf="@+id/resultImage"
-            app:layout_constraintTop_toTopOf="@+id/resultImage"
-            tools:text="итого" />
 
         <ImageView
             android:id="@+id/discountImage"
@@ -132,6 +109,18 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/basketHeader" />
+
+        <ImageView
+            android:id="@+id/addPv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="19dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            tools:ignore="ContentDescription">
+
+        </ImageView>
 
         <Button
             android:id="@+id/basketPayButton"

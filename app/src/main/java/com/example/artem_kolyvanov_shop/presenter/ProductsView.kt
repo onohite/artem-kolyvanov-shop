@@ -12,19 +12,24 @@ interface ProductsView: MvpView {
      * If price have not fractional part than it will be printed as integer
      * If price have fractional part than it will be rounded for 2 symbols after "."
      */
+    @StateStrategyType(AddToEndSingleStrategy::class)
     fun print(price: Double)
 
+    @StateStrategyType(AddToEndSingleStrategy::class)
     fun print(name: String)
-
 
     /**
      * Output in Name - Price - Discount - Result format
      */
+    @StateStrategyType(AddToEndSingleStrategy::class)
     fun print(products:List<Product>)
 
-    fun showErrorForLastName(visible:Boolean)
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setProducts(list:List<Product>)
 
-    fun showErrorForFirstName(visible:Boolean)
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun removeProduct(position:Int)
 
-    fun showErrorForPhoneNumber(visible: Boolean)
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun addProduct(product:Product)
 }
