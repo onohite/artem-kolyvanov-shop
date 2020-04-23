@@ -1,6 +1,4 @@
 package com.example.artem_kolyvanov_shop.ui
-
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -9,25 +7,20 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
-import android.widget.LinearLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.artem_kolyvanov_shop.R
 import com.example.artem_kolyvanov_shop.ui.CatalogActivity.Companion.IS_USER_AUTH
 import com.example.artem_kolyvanov_shop.ui.CatalogActivity.Companion.PRODUCT_ID
-import com.example.artem_kolyvanov_shop.model.Product
-import com.example.artem_kolyvanov_shop.presenter.BasketPresenter
-import com.example.artem_kolyvanov_shop.presenter.ProductsView
+import com.example.artem_kolyvanov_shop.presenter.CheckOutPresenter
+import com.example.artem_kolyvanov_shop.presenter.CheckoutView
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.order_layout.*
-import recyclerViewAdapter
+
 
 
 class CheckoutActivity:BaseActivity(),
-    ProductsView {
+    CheckoutView {
 
-    private val presenter =
-        BasketPresenter()
+    private val presenter = CheckOutPresenter()
     private var isAuth: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +41,8 @@ class CheckoutActivity:BaseActivity(),
                 putExtra(IS_USER_AUTH, isAuth)
             })
         }
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,19 +82,6 @@ class CheckoutActivity:BaseActivity(),
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-    }
-
-    override fun print(price: Double) {
-        Log.d("Print", "Price: $price")
-    }
-
-    override fun print(name: String) {
-        Log.d("Print",name)
-    }
-
-    @SuppressLint("WrongConstant")
-    override fun print(products: List<Product>) {
-        TODO("Not yet implemented")
     }
 
     private fun EditText.showError(visible: Boolean) {

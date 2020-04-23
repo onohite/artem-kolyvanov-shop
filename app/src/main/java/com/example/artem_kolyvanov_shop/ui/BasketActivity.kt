@@ -5,11 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.artem_kolyvanov_shop.R
 import com.example.artem_kolyvanov_shop.model.Product
 import com.example.artem_kolyvanov_shop.presenter.BasketPresenter
@@ -18,24 +14,27 @@ import com.example.artem_kolyvanov_shop.ui.CatalogActivity.Companion.PRODUCT_ID
 import com.example.artem_kolyvanov_shop.ui.CatalogActivity.Companion.REQUEST_AUTH
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.basket_layout.*
-import recyclerViewAdapter
+import kotlinx.android.synthetic.main.catalog_layout.*
 
 class BasketActivity:BaseActivity(),ProductsView {
 
     private val presenter = BasketPresenter()
+    private val adapter = BasketAdapter { product ->
+        presenter.removeItem(product)
+    }
+
+    val anime = Product(100.0,13,"Xiaomi case")
     private var isAuth: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.basket_layout)
 
-        presenter.attachView(this)
         setSupportActionBar(findViewById(R.id.basketHeader))
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val productId = intent.extras?.getInt(CatalogActivity.PRODUCT_ID, -1)
         Log.d(tag, productId.toString())
-        presenter.productsPrint()
 
         supportActionBar?.title = "Корзина"
         basketPayButton.setOnClickListener {
@@ -50,6 +49,14 @@ class BasketActivity:BaseActivity(),ProductsView {
                 intent,
                 REQUEST_AUTH
             )
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        presenter.attachView(this)
+        presenter.setData()
+        addPv.setOnClickListener {
+            presenter.addData(anime)
         }
     }
 
@@ -71,23 +78,19 @@ class BasketActivity:BaseActivity(),ProductsView {
 
     @SuppressLint("WrongConstant")
     override fun print(products: List<Product>) {
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL,false)
-
-        val adapter = recyclerViewAdapter(products)
-        recyclerView.adapter = adapter
-    }
-
-    override fun showErrorForLastName(visible: Boolean) {
         TODO("Not yet implemented")
     }
 
-    override fun showErrorForFirstName(visible: Boolean) {
-        TODO("Not yet implemented")
+    override fun setProducts(list: List<Product>) {
+        adapter.setData(list)
     }
 
-    override fun showErrorForPhoneNumber(visible: Boolean) {
-        TODO("Not yet implemented")
+    override fun removeProduct(position: Int) {
+        adapter.notifyItemRemoved(position)
+    }
+
+    override fun addProduct(product: Product) {
+        adapter.addData(product)
     }
 }
 
