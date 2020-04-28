@@ -14,19 +14,18 @@ import com.example.artem_kolyvanov_shop.presenter.CheckOutPresenter
 import com.example.artem_kolyvanov_shop.presenter.CheckoutView
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.order_layout.*
-
+import moxy.ktx.moxyPresenter
 
 
 class CheckoutActivity:BaseActivity(),
     CheckoutView {
 
-    private val presenter = CheckOutPresenter()
+    private val presenter by moxyPresenter {   CheckOutPresenter()}
     private var isAuth: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_layout)
-        presenter.attachView(this)
         setSupportActionBar(findViewById(R.id.orderHeader))
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -49,7 +48,7 @@ class CheckoutActivity:BaseActivity(),
         if (item.itemId == android.R.id.home ) {
             finish()
         }
-        return true;
+        return true
     }
 
     private fun setListeners() {

@@ -1,4 +1,4 @@
-package com.example.artem_kolyvanov_shop.model
+package com.example.artem_kolyvanov_shop.domain.model
 
 /**
  * Модель для создания заказа

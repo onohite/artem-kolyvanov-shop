@@ -1,22 +1,31 @@
 package com.example.artem_kolyvanov_shop.ui
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.artem_kolyvanov_shop.R
-import com.example.artem_kolyvanov_shop.model.Product
+import com.example.artem_kolyvanov_shop.data.ViewedProductDaoImpl
+import com.example.artem_kolyvanov_shop.domain.model.ProductItem
 import com.example.artem_kolyvanov_shop.presenter.CatalogPresenter
 import com.example.artem_kolyvanov_shop.presenter.CatalogView
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.catalog_layout.*
+import moxy.ktx.moxyPresenter
 
 class CatalogActivity: BaseActivity(),CatalogView {
 
-    private val presenter = CatalogPresenter()
-    private val adapter = CategoryAdapter { category ->
-        presenter.removeItem(category)
+    private val presenter by moxyPresenter {
+        CatalogPresenter(ViewedProductDaoImpl(sharedPreferences))
     }
+    private val categoryAdapter by lazy { CategoryAdapter { category ->
+        presenter.removeItem(category)}
+    }
+    private val viewedAdapter by lazy { ViewedAdapter()}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.catalog_layout)
@@ -37,11 +46,15 @@ class CatalogActivity: BaseActivity(),CatalogView {
                 REQUEST_AUTH
             )
         }
+        with(categoryRV){
+            layoutManager = LinearLayoutManager(context)
+            adapter = categoryAdapter
+        }
 
-        categoryRV.layoutManager = LinearLayoutManager(this)
-        categoryRV.adapter = adapter
-        presenter.attachView(this)
-        presenter.setData()
+        with(viewedRV){
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            adapter = viewedAdapter
+        }
 
     }
 
@@ -69,10 +82,21 @@ class CatalogActivity: BaseActivity(),CatalogView {
     }
 
     override fun setCategories(list: List<String>) {
-        adapter.setData(list)
+        categoryAdapter.setData(list)
     }
 
     override fun removeItem(position: Int) {
-        adapter.notifyItemRemoved(position)
+        categoryAdapter.notifyItemRemoved(position)
+    }
+
+    override fun showProductIds(productIds: List<Long>) {
+        Toast.makeText(this,productIds.joinToString { "," },Toast.LENGTH_LONG).show()
+    }
+
+    override fun setVisitedProducts(list: List<ProductItem>) {
+        viewedAdapter.setData(list)
     }
 }
+
+val AppCompatActivity.sharedPreferences:SharedPreferences get() =
+    getSharedPreferences("data",MODE_PRIVATE)

@@ -3,14 +3,14 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
 
-        android:layout_width="match_parent"
-        android:layout_height="173dp"
+        android:layout_width="wrap_content"
+        android:layout_height="130dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
@@ -18,7 +18,7 @@
 
         <LinearLayout
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/card_background"
             android:orientation="vertical">
@@ -38,7 +38,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/nameProduct"
+                        android:id="@+id/idViewed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/productName"
@@ -46,6 +46,7 @@
                         android:textSize="24dp" />
 
                     <TextView
+                        android:id="@+id/nameViewed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/price"
@@ -53,28 +54,13 @@
                         android:textSize="18dp" />
 
                     <TextView
+                        android:id="@+id/priceViewed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/discount"
                         android:textColor="#90ffffff"
                         android:textSize="18dp" />
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/saleIp"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_discount">
-
-
-                    </ImageView>
-                </RelativeLayout>
 
 
             </LinearLayout>

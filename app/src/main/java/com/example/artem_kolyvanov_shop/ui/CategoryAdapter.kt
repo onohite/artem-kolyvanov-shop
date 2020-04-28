@@ -21,13 +21,13 @@ class CategoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.ViewHolder =
          ViewHolder(
-             LayoutInflater.from(parent.context).inflate(R.layout.catalog_product_item,parent,false)
+             LayoutInflater.from(parent.context).inflate(R.layout.item_category,parent,false)
          )
 
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         fun bind(text: String){
-            itemView.namePln.text = text
-            itemView.saleIp.setOnClickListener {
+            itemView.categoryTv.text = text
+            itemView.deleteIv.setOnClickListener {
                 onDeleteClick(text)
             }
         }

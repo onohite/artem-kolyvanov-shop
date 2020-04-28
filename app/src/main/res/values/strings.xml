@@ -24,4 +24,6 @@
     <string name="Catalog">Каталог</string>
     <string name="goToBasket">Перейти в корзину</string>
     <string name="iphoneCase">IphoneCase</string>
+    <string name="some_text">someText</string>
+    <string name="detailed_photo_title">detailed photo</string>
 </resources>

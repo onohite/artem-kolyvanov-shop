@@ -12,6 +12,7 @@
         <activity android:name=".ui.CheckoutActivity"/>
         <activity android:name=".ui.BasketActivity"/>
         <activity android:name=".ui.ProductActivity"/>
+        <activity android:name=".ui.DetailedActivity"/>
         <activity android:name=".ui.CatalogActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
