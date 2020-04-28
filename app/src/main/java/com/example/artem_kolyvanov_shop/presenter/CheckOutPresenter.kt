@@ -1,8 +1,11 @@
 package com.example.artem_kolyvanov_shop.presenter
 
-import com.example.artem_kolyvanov_shop.model.CreateOrderModel
+import com.example.artem_kolyvanov_shop.domain.model.CreateOrderModel
+import moxy.InjectViewState
 import moxy.MvpPresenter
 
+
+@InjectViewState
 class CheckOutPresenter:MvpPresenter<CheckoutView>() {
     private val model = CreateOrderModel()
 
@@ -29,4 +32,10 @@ class CheckOutPresenter:MvpPresenter<CheckoutView>() {
         if (checkNumber(number)) model.phoneNumber = number
         viewState.showErrorForPhoneNumber(!checkNumber(number))
     }
+
+    override fun attachView(view: CheckoutView?) {
+        super.attachView(view)
+    }
+
+
 }

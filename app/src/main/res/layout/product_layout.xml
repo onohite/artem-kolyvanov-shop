@@ -61,27 +61,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/namePln"
+                        android:id="@+id/nameProduct"
                         android:textSize="24dp"
                         android:textColor="#ffff"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/productName"
                         />
+
                     <TextView
-                        android:textSize="18dp"
-                        android:textColor="#70ffffff"
+                        android:id="@+id/productPrice"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/price"
-                        />
+                        android:textColor="#70ffffff"
+                        android:textSize="18dp" />
+
                     <TextView
-                        android:textSize="18dp"
-                        android:textColor="#90ffffff"
+                        android:id="@+id/productDiscount"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@string/discount"
-                        />
+                        android:textColor="#90ffffff"
+                        android:textSize="18dp" />
                 </LinearLayout>
 
                 <RelativeLayout

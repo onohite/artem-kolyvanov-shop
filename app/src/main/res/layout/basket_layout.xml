@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:alpha="1"
         android:background="@color/backgroundColor"
-        android:minHeight="740dp"
+        android:minHeight="700dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,16 +36,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/checkout_header" />
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="1dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@color/backgroundColor"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/discount" />
-
 
         <ImageView
             android:id="@+id/priceImage"
@@ -116,8 +117,10 @@
             android:layout_height="wrap_content"
             android:padding="19dp"
             android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/basketPayButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+            app:layout_constraintStart_toEndOf="@+id/basketPayButton"
+            app:layout_constraintTop_toTopOf="@+id/basketPayButton"
             tools:ignore="ContentDescription">
 
         </ImageView>
@@ -126,16 +129,16 @@
             android:id="@+id/basketPayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginBottom="70dp"
             android:background="#000000"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="@string/basketPayButton"
             android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
+            app:layout_constraintStart_toEndOf="@+id/recyclerView"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
