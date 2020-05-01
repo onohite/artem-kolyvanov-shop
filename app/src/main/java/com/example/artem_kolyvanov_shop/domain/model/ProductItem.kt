@@ -27,7 +27,7 @@ class ProductItem internal constructor(
     }
 
     companion object  {
-        fun createCartProduct(
+        fun createProductItem(
             id: Int,
             title: String,
             imageUrl: String,

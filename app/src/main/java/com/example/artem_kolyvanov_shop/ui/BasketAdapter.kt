@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artem_kolyvanov_shop.R
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
-import kotlinx.android.synthetic.main.products_list.view.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.products_list.*
 
 
 class BasketAdapter(
@@ -36,16 +37,16 @@ class BasketAdapter(
         holder.bind(productList[position])
     }
 
-    inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder( override val containerView: View):RecyclerView.ViewHolder(containerView),LayoutContainer {
         fun bind(product: ProductItem){
-            itemView.productName.text = product.title
-            itemView.productPrice.text = product.value.price.toString()
-            itemView.discountNumber.text = "${product.value.salePercent.toString()} %"
+            productName.text = product.title
+            productPrice.text = product.value.price.toString()
+            discountNumber.text = "${product.value.salePercent.toString()} %"
 
-            itemView.deleteIb.setOnClickListener {
+            deleteIb.setOnClickListener {
                 onDeleteClick(product)
             }
-            itemView.setOnClickListener{
+            containerView.setOnClickListener{
                 onProductClick(product)
             }
         }

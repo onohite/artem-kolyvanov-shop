@@ -24,7 +24,6 @@ class BasketActivity:BaseActivity(),ProductsView {
             product -> presenter.removeItem(product)},
         { product -> presenter.onProductClick(product)})}
 
-    val anime = ProductItem.createCartProduct(6, "MacBook", "123321", 1200.0, 0)
     private var isAuth: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class BasketActivity:BaseActivity(),ProductsView {
 
 
         addPv.setOnClickListener {
-            presenter.addData(anime)
+            presenter.addData()
         }
     }
 
