@@ -2,7 +2,6 @@ package com.example.artem_kolyvanov_shop.presenter
 
 import com.example.artem_kolyvanov_shop.domain.ViewedProductDao
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
-import com.example.artem_kolyvanov_shop.domain.model.ProductItem.Companion.createCartProduct
 import moxy.InjectViewState
 import moxy.MvpPresenter
 

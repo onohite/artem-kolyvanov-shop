@@ -6,7 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artem_kolyvanov_shop.R
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.viewed_item.*
 import kotlinx.android.synthetic.main.viewed_item.view.*
+import kotlinx.android.synthetic.main.viewed_item.view.idViewed
+import kotlinx.android.synthetic.main.viewed_item.view.nameViewed
+import kotlinx.android.synthetic.main.viewed_item.view.priceViewed
 
 class ViewedAdapter(): RecyclerView.Adapter<ViewedAdapter.ViewHolder>() {
 
@@ -18,11 +23,11 @@ class ViewedAdapter(): RecyclerView.Adapter<ViewedAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder( override val containerView: View):RecyclerView.ViewHolder(containerView),LayoutContainer {
         fun bind(product: ProductItem){
-            itemView.idViewed.text = product.id.toString()
-            itemView.nameViewed.text = product.title
-            itemView.priceViewed.text = product.value.price.toString()
+            idViewed.text = product.id.toString()
+            nameViewed.text = product.title
+            priceViewed.text = product.value.price.toString()
         }
     }
 
