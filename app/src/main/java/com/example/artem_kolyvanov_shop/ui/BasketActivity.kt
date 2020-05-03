@@ -1,11 +1,14 @@
 package com.example.artem_kolyvanov_shop.ui
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.artem_kolyvanov_shop.R
+import com.example.artem_kolyvanov_shop.domain.model.MainApi
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
 import com.example.artem_kolyvanov_shop.presenter.BasketPresenter
 import com.example.artem_kolyvanov_shop.presenter.ProductsView
@@ -15,10 +18,21 @@ import com.example.artem_kolyvanov_shop.ui.DetailedActivity.Companion.PRODUCT_TA
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.basket_layout.*
 import moxy.ktx.moxyPresenter
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+
 
 class BasketActivity:BaseActivity(),ProductsView {
 
-    private val presenter by moxyPresenter {BasketPresenter()}
+    private val presenter by moxyPresenter {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://207.254.71.167:9191/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(MainApi::class.java)
+        BasketPresenter(service)
+    }
 
     private val basketAdapter by lazy {BasketAdapter( {
             product -> presenter.removeItem(product)},
@@ -84,6 +98,21 @@ class BasketActivity:BaseActivity(),ProductsView {
         startActivity(Intent(this, DetailedActivity::class.java).apply {
             putExtra(PRODUCT_TAG, product)
         })
+    }
+
+    override fun showException(e: IOException,msg:String) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+
+        builder.setTitle(msg)
+        builder.setMessage("Повторить запрос?")
+
+        builder.setPositiveButton("повторить",
+            DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+                this.presenter.requestLaunch()
+            })
+        val alert: AlertDialog = builder.create()
+        alert.show()
     }
 }
 

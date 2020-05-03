@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class ProductItem internal constructor(
-    val id: Int,
+    val id: String,
     val title: String,
     val imageUrl: String,
     val value: Value) : Parcelable {
@@ -15,20 +15,10 @@ class ProductItem internal constructor(
         return "$id: $title"
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (other is ProductItem) {
-            return other.id == id
-        }
-        return false
-    }
-
-    override fun hashCode(): Int {
-        return "Entity$id".hashCode()
-    }
 
     companion object  {
         fun createProductItem(
-            id: Int,
+            id: String,
             title: String,
             imageUrl: String,
             price: Double,

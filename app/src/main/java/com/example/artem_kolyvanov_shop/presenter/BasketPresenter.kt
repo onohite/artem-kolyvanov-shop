@@ -1,30 +1,31 @@
 package com.example.artem_kolyvanov_shop.presenter
 
+import com.example.artem_kolyvanov_shop.domain.model.MainApi
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem.Companion.createProductItem
+import com.example.artem_kolyvanov_shop.domain.model.Value
+import com.google.gson.JsonObject
+import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import java.io.IOException
+import java.net.UnknownHostException as UnknownHostException
 
 @InjectViewState
-class BasketPresenter : MvpPresenter<ProductsView>() {
-    private val products = mutableListOf(
-        createProductItem(1, "Iphone Case", "123321", 150.0, 50),
-        createProductItem(2, "Samsung Case", "123321", 120.0, 30),
-        createProductItem(3, "Huawei Case", "123321", 92.0,  50),
-        createProductItem(4, "someProd3", "123321", 1200.0, 0),
-        createProductItem(5, "someProd4", "123321", 1200.0, 0),
-        createProductItem(6, "someProd5", "123321", 1200.0, 0),
-        createProductItem(7, "someProd6", "123321", 1200.0, 0))
+class BasketPresenter(
+    private val mainApi: MainApi
+) : BasePresenter<ProductsView>() {
+    private var products = mutableListOf<ProductItem>()
 
-    private val product = createProductItem(6, "MacBook", "123321", 1200.0, 0)
+    private val product = createProductItem("6", "MacBook", "123321", 1200.0, 0)
 
-    fun setData(){
+    private fun setData(){
         viewState.setProducts(products)
     }
 
     fun removeItem(product: ProductItem){
         val position = products.indexOf(product)
-        products.remove(product)
+        products.removeAt(position)
         viewState.removeProduct(position)
     }
 
@@ -34,7 +35,38 @@ class BasketPresenter : MvpPresenter<ProductsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        setData()
+        requestLaunch()
+
+    }
+
+    private suspend fun makeRequest(){
+        val remoteProducts = mainApi.allProducts()
+        val productItems = remoteProducts.map { remoteProduct ->
+            val productItem = createProductItem(
+                remoteProduct.id,
+                remoteProduct.name,
+                remoteProduct.imageUrl,
+                remoteProduct.price,
+                remoteProduct.discountPercent)
+            productItem
+        }.toMutableList()
+        products = productItems
+    }
+
+    fun requestLaunch () {
+        launch {
+            try {
+                makeRequest()
+                setData()
+            }
+            catch(e: UnknownHostException){
+                alertError(e,"Ошибка подключения сети")
+            }
+        }
+    }
+
+    private fun alertError(e:UnknownHostException, msg:String){
+        viewState.showException(e,msg)
     }
 
     fun onProductClick(product: ProductItem) {

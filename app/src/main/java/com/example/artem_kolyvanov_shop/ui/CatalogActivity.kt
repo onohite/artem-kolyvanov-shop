@@ -10,17 +10,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.artem_kolyvanov_shop.R
 import com.example.artem_kolyvanov_shop.data.ViewedProductDaoImpl
+import com.example.artem_kolyvanov_shop.domain.model.MainApi
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
 import com.example.artem_kolyvanov_shop.presenter.CatalogPresenter
 import com.example.artem_kolyvanov_shop.presenter.CatalogView
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.catalog_layout.*
 import moxy.ktx.moxyPresenter
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CatalogActivity: BaseActivity(),CatalogView {
 
     private val presenter by moxyPresenter {
-        CatalogPresenter(ViewedProductDaoImpl(sharedPreferences))
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://207.254.71.167:9191/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(MainApi::class.java)
+        CatalogPresenter(
+            mainApi = service,
+            viewedProductDao = ViewedProductDaoImpl(sharedPreferences)
+        )
     }
     private val categoryAdapter by lazy { CategoryAdapter { category ->
         presenter.removeItem(category)}

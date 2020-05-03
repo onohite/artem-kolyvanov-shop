@@ -1,34 +1,33 @@
 package com.example.artem_kolyvanov_shop.presenter
 
 import com.example.artem_kolyvanov_shop.domain.ViewedProductDao
+import com.example.artem_kolyvanov_shop.domain.model.MainApi
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
+
+import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import java.io.IOException
+
+
 
 @InjectViewState
 class CatalogPresenter(
+    private val mainApi: MainApi,
     private val viewedProductDao: ViewedProductDao
-): MvpPresenter<CatalogView>() {
+): BasePresenter<CatalogView>() {
 
     private val products:List<ProductItem>
         get() {
             return viewedProductDao.getAllProducts()
         }
 
-    val list = mutableListOf(
-        "Телевизоры",
-        "Телефоны",
-        "Планшеты",
-        "Часы",
-        "Компьютеры",
-        "Ноутбуки")
+      val list = mutableListOf("")
 
-    fun setData(){
+    private fun setData(){
         viewState.setCategories(list)
-
     }
 
-    fun setViewedProduct(){
+    private fun setViewedProduct(){
         viewState.setVisitedProducts(products)
     }
 
@@ -41,13 +40,19 @@ class CatalogPresenter(
     override fun attachView(view: CatalogView?) {
         super.attachView(view)
         setViewedProduct()
-
     }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        setData()
+        launch {
+            try {
+                val remoteProducts = mainApi.allProducts()
+                val productNames = remoteProducts.map { remoteProduct -> remoteProduct.name }
+                viewState.setCategories(productNames)
+            }
+            catch(e: IOException){
 
+            }
+        }
     }
-
 }

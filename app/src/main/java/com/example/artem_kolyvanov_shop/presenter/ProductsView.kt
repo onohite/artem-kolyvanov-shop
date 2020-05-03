@@ -1,10 +1,12 @@
 package com.example.artem_kolyvanov_shop.presenter
 
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
+import com.example.artem_kolyvanov_shop.domain.model.RemoteProduct
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import java.io.IOException
 
 @StateStrategyType(AddToEndSingleStrategy::class )
 interface ProductsView: MvpView {
@@ -29,4 +31,7 @@ interface ProductsView: MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun showProductDerailed(product: ProductItem)
+
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showException(e:IOException,msg:String)
 }

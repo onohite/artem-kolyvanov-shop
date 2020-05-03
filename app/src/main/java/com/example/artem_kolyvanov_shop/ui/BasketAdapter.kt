@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.artem_kolyvanov_shop.R
 import com.example.artem_kolyvanov_shop.domain.model.ProductItem
+import com.example.artem_kolyvanov_shop.domain.model.RemoteProduct
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.products_list.*
 
