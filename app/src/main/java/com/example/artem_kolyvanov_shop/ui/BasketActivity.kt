@@ -100,7 +100,7 @@ class BasketActivity:BaseActivity(),ProductsView {
         })
     }
 
-    override fun showException(e: IOException,msg:String) {
+    override fun showException(msg:String) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
         builder.setTitle(msg)

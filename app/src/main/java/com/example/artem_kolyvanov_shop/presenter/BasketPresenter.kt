@@ -60,13 +60,13 @@ class BasketPresenter(
                 setData()
             }
             catch(e: UnknownHostException){
-                alertError(e,"Ошибка подключения сети")
+                alertError("Ошибка подключения сети")
             }
         }
     }
 
-    private fun alertError(e:UnknownHostException, msg:String){
-        viewState.showException(e,msg)
+    private fun alertError(msg:String){
+        viewState.showException(msg)
     }
 
     fun onProductClick(product: ProductItem) {

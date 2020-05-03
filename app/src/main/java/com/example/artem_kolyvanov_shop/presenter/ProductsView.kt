@@ -33,5 +33,5 @@ interface ProductsView: MvpView {
     fun showProductDerailed(product: ProductItem)
 
     @StateStrategyType(OneExecutionStateStrategy::class)
-    fun showException(e:IOException,msg:String)
+    fun showException(msg:String)
 }
