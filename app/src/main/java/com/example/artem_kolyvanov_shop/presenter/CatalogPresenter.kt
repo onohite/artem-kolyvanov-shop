@@ -1,40 +1,52 @@
 package com.example.artem_kolyvanov_shop.presenter
 
-import com.example.artem_kolyvanov_shop.domain.ViewedProductDao
-import com.example.artem_kolyvanov_shop.domain.model.MainApi
-import com.example.artem_kolyvanov_shop.domain.model.ProductItem
+import com.example.artem_kolyvanov_shop.domain.ProductDao
+import com.example.artem_kolyvanov_shop.domain.model.*
+import com.example.artem_kolyvanov_shop.presenter.view.CatalogView
 
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import java.io.IOException
-
+import java.net.ConnectException
+import java.net.UnknownHostException
+import javax.inject.Inject
 
 
 @InjectViewState
-class CatalogPresenter(
-    private val mainApi: MainApi,
-    private val viewedProductDao: ViewedProductDao
+class CatalogPresenter @Inject constructor(
+    private val productDao: ProductDao,
+    private val mainApi: MainApi
 ): BasePresenter<CatalogView>() {
 
-    private val products:List<ProductItem>
+    private val viewedProducts:List<Product>
         get() {
-            return viewedProductDao.getAllProducts()
+            return productDao.getAllViewedProducts()
         }
 
-      val list = mutableListOf("")
+    private var categories= mutableListOf<Category>()
+
+      val list= mutableListOf("")
 
     private fun setData(){
-        viewState.setCategories(list)
+        viewState.setCategories(categories.map { it.name })
     }
 
     private fun setViewedProduct(){
-        viewState.setVisitedProducts(products)
+        if (!viewedProducts.isNullOrEmpty())
+            viewState.showVisitedText()
+        viewState.setVisitedProducts(viewedProducts)
     }
 
-    fun removeItem(category:String){
-        val position = list.indexOf(category)
-        list.remove(category)
-        viewState.removeItem(position)
+    fun goToCategoryProducts(name:String){
+        val category = categories.first{it.name == name}
+        viewState.openCategory(category)
+    }
+
+    fun goToVisitedProductDetailed(product:Product){
+        viewState.showVisited(product)
+    }
+
+    fun goToBasket(){
+        viewState.openBasket()
     }
 
     override fun attachView(view: CatalogView?) {
@@ -44,15 +56,31 @@ class CatalogPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        requestLaunch()
+    }
+
+
+    private suspend fun makeRequest(){
+        val remoteCategory = mainApi.allProducts()
+        categories = remoteCategory.toMutableList()
+    }
+
+    fun requestLaunch () {
         launch {
             try {
-                val remoteProducts = mainApi.allProducts()
-                val productNames = remoteProducts.map { remoteProduct -> remoteProduct.name }
-                viewState.setCategories(productNames)
+                makeRequest()
+                setData()
             }
-            catch(e: IOException){
-
+            catch(e: UnknownHostException){
+                alertError("Ошибка подключения сети")
+            }
+            catch(e:ConnectException){
+                alertError("Отсутствует подключение к сети")
             }
         }
+    }
+
+    private fun alertError(msg:String){
+        viewState.showException(msg)
     }
 }

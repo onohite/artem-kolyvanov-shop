@@ -5,28 +5,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/MiddleGrey"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
 
         android:layout_width="wrap_content"
         android:layout_height="130dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        app:cardCornerRadius="11dp">
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="4dp"
+        app:cardBackgroundColor="@color/MiddleGrey01dp"
+        app:cardCornerRadius="9dp">
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/card_background"
             android:orientation="vertical">
 
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:orientation="horizontal">
@@ -38,28 +39,81 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/idViewed"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/productName"
-                        android:textColor="#ffff"
-                        android:textSize="24dp" />
-
-                    <TextView
                         android:id="@+id/nameViewed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/price"
-                        android:textColor="#70ffffff"
-                        android:textSize="18dp" />
+                        android:layout_marginStart="15dp"
+                        android:text="@string/productName"
+                        android:textColor="@color/five_percent_white"
+                        android:textSize="24dp" />
 
-                    <TextView
-                        android:id="@+id/priceViewed"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/discount"
-                        android:textColor="#90ffffff"
-                        android:textSize="18dp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/priceDefViewed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/priceDefViewed"
+                            android:textColor="#70ffffff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/priceViewed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/price"
+                            android:textColor="#70ffffff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/moneyType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="3dp"
+                            android:text="@string/moneyType"
+                            android:textColor="#70ffffff"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/discountDefViewed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/discountDefViewed"
+                            android:textColor="#90ffffff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/discountViewed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/discount"
+                            android:textColor="#90ffffff"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/discountSymbol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="3dp"
+                            android:text="@string/discountSymbol"
+                            android:textColor="#90ffffff"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
 
