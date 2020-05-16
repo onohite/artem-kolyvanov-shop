@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import moxy.MvpAppCompatActivity
 
 
-abstract class BaseActivity : MvpAppCompatActivity() {
+abstract class BaseActivity(layoutId:Int) : MvpAppCompatActivity(layoutId) {
     val tag = this.javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {

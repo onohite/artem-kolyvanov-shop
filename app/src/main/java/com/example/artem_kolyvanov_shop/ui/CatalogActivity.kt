@@ -1,113 +1,119 @@
 package com.example.artem_kolyvanov_shop.ui
 
-import android.content.Context.MODE_PRIVATE
+
+import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.artem_kolyvanov_shop.App
 import com.example.artem_kolyvanov_shop.R
-import com.example.artem_kolyvanov_shop.data.ViewedProductDaoImpl
-import com.example.artem_kolyvanov_shop.domain.model.MainApi
-import com.example.artem_kolyvanov_shop.domain.model.ProductItem
+import com.example.artem_kolyvanov_shop.domain.interactor.AddProductToBasketUseCase
+import com.example.artem_kolyvanov_shop.domain.model.Category
+import com.example.artem_kolyvanov_shop.domain.model.Product
 import com.example.artem_kolyvanov_shop.presenter.CatalogPresenter
-import com.example.artem_kolyvanov_shop.presenter.CatalogView
+import com.example.artem_kolyvanov_shop.presenter.view.CatalogView
+import com.example.artem_kolyvanov_shop.ui.adapter.CatalogAdapter
+import com.example.artem_kolyvanov_shop.ui.adapter.ViewedAdapter
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.catalog_layout.*
 import moxy.ktx.moxyPresenter
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class CatalogActivity: BaseActivity(),CatalogView {
+import javax.inject.Inject
 
-    private val presenter by moxyPresenter {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://207.254.71.167:9191/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(MainApi::class.java)
-        CatalogPresenter(
-            mainApi = service,
-            viewedProductDao = ViewedProductDaoImpl(sharedPreferences)
-        )
+class CatalogActivity: BaseActivity(R.layout.catalog_layout),
+    CatalogView {
+    @Inject
+    lateinit var catalogPresenter: CatalogPresenter
+
+    @Inject
+    lateinit var addProductBasket: AddProductToBasketUseCase
+
+    private val presenter by moxyPresenter { catalogPresenter }
+
+    private val catalogAdapter by lazy {
+        CatalogAdapter { category ->
+            presenter.goToCategoryProducts(category)
+        }
     }
-    private val categoryAdapter by lazy { CategoryAdapter { category ->
-        presenter.removeItem(category)}
-    }
-    private val viewedAdapter by lazy { ViewedAdapter()}
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.catalog_layout)
-
-
-
-        Log.d(tag, "savedInstanceState = $savedInstanceState")
-        val savedInt = savedInstanceState?.getInt(SAVE_SATE_INT)
-        Log.d(tag, "savedInt $savedInt")
-
-        checkoutCatalogButton.setOnClickListener {
-            val intent = Intent(this,
-                BasketActivity::class.java).apply {
-                putExtra(PRODUCT_ID,1000)
-            }
-
-            startActivityForResult(intent,
-                REQUEST_AUTH
+    private val viewedAdapter by lazy {
+        ViewedAdapter { product ->
+            presenter.goToVisitedProductDetailed(
+                product
             )
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        App.appComponent.inject(this)
+        super.onCreate(savedInstanceState)
+        setSupportActionBar(catalogHeader)
+        supportActionBar?.elevation = 30F
+        supportActionBar?.title = "Каталог"
+        checkoutCatalogButton.setOnClickListener {
+            presenter.goToBasket()
+        }
+
         with(categoryRV){
             layoutManager = LinearLayoutManager(context)
-            adapter = categoryAdapter
+            adapter = catalogAdapter
         }
 
         with(viewedRV){
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
             adapter = viewedAdapter
         }
-
     }
 
-
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(SAVE_SATE_INT, 89)
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (REQUEST_AUTH == requestCode){
-            val isUserAuth = data?.extras?.getBoolean(IS_USER_AUTH)
-            Log.d(tag, isUserAuth.toString())
-        }
-    }
 
     companion object {
-        const val PRODUCT_ID = "PRODUCT_ID"
-        const val REQUEST_AUTH: Int = 10
-        const val IS_USER_AUTH = "IS_USER_AUTH"
-        const val SAVE_SATE_INT = "SAVE_SATE_INT"
+        const val PRODUCTS = "PRODUCTS_LIST"
+        const val CATEGORY = "CATEGORY"
     }
 
     override fun setCategories(list: List<String>) {
-        categoryAdapter.setData(list)
+        catalogAdapter.setData(list)
     }
 
-    override fun removeItem(position: Int) {
-        categoryAdapter.notifyItemRemoved(position)
-    }
-
-    override fun showProductIds(productIds: List<Long>) {
-        Toast.makeText(this,productIds.joinToString { "," },Toast.LENGTH_LONG).show()
-    }
-
-    override fun setVisitedProducts(list: List<ProductItem>) {
+    override fun setVisitedProducts(list: List<Product>) {
         viewedAdapter.setData(list)
     }
+
+    override fun showException(msg:String) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+
+        builder.setTitle(msg)
+        builder.setMessage("Повторить запрос?")
+
+        builder.setPositiveButton("повторить")
+        { dialog, _ ->
+            dialog.dismiss()
+            this.presenter.requestLaunch()
+        }
+        val alert: AlertDialog = builder.create()
+        alert.show()
+    }
+
+    override fun openCategory(category: Category) {
+        startActivity(Intent(this, CategoryActivity::class.java).apply {
+            putExtra(CATEGORY, category)
+        })
+    }
+
+    override fun showVisited(product: Product) {
+        startActivity(Intent(this, DetailedActivity::class.java).apply {
+            putExtra(DetailedActivity.PRODUCT_TAG, product)
+        })
+    }
+
+    override fun openBasket() {
+        startActivity(Intent(this,BasketActivity::class.java))
+    }
+
+    override fun showVisitedText() {
+        visitedText.visibility = View.VISIBLE
+    }
+
+
 }
 
-val AppCompatActivity.sharedPreferences:SharedPreferences get() =
-    getSharedPreferences("data",MODE_PRIVATE)

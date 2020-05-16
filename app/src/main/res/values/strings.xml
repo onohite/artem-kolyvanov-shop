@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">artem-kolyvanov-shop</string>
+    <string name="app_name">UralMebel</string>
     <string name="checkout_header">Оформление заказа</string>
     <string name="moneyOut">итоговая цена</string>
     <string name="result">итого</string>
@@ -28,4 +28,17 @@
     <string name="detailed_photo_title">detailed photo</string>
     <string name="textError1">Ошибка подключения сети</string>
     <string name="textError2">Перезапустите приложение</string>
+    <string name="priceDefViewed">Цена:</string>
+    <string name="discountDefViewed">Скидка</string>
+    <string name="moneyType">"руб."</string>
+    <string name="discountSymbol">%</string>
+    <string name="visitedText">Посещенные товары</string>
+    <string name="stols">Столы</string>
+    <string name="totalPriceText">Итоговая стоимость:</string>
+    <string name="descriptionText">Описание</string>
+    <string name="productMakerText">Производитель</string>
+    <string name="productQualityText">Качество</string>
+    <string name="priceWithDiscount">Цена со скидкой</string>
+    <string name="detailedAddToBasket">Добавить в корзину</string>
+    <string name="resultPrice">Итого :</string>
 </resources>

@@ -1,80 +1,55 @@
 package com.example.artem_kolyvanov_shop.presenter
 
-import com.example.artem_kolyvanov_shop.domain.model.MainApi
-import com.example.artem_kolyvanov_shop.domain.model.ProductItem
-import com.example.artem_kolyvanov_shop.domain.model.ProductItem.Companion.createProductItem
-import com.example.artem_kolyvanov_shop.domain.model.Value
-import com.google.gson.JsonObject
-import kotlinx.coroutines.launch
+import android.content.Context
+import android.view.View
+import com.example.artem_kolyvanov_shop.domain.interactor.AddProductToViewedUseCase
+import com.example.artem_kolyvanov_shop.domain.interactor.DeleteProductFromBasketUseCase
+import com.example.artem_kolyvanov_shop.domain.interactor.DeleteProductFromItemUseCase
+import com.example.artem_kolyvanov_shop.domain.interactor.GetProductsFromBasketUseCase
+import com.example.artem_kolyvanov_shop.domain.model.Product
+import com.example.artem_kolyvanov_shop.presenter.view.ProductsView
+import kotlinx.android.synthetic.main.basket_layout.*
 import moxy.InjectViewState
-import moxy.MvpPresenter
-import java.io.IOException
-import java.net.UnknownHostException as UnknownHostException
+import javax.inject.Inject
 
 @InjectViewState
-class BasketPresenter(
-    private val mainApi: MainApi
+class BasketPresenter @Inject constructor(
+    private val deleteProductFromBasketUseCase: DeleteProductFromBasketUseCase,
+    private val getProductsFromBasketUseCase: GetProductsFromBasketUseCase,
+    private val deleteProductFromItemUseCase: DeleteProductFromItemUseCase
 ) : BasePresenter<ProductsView>() {
-    private var products = mutableListOf<ProductItem>()
 
-    private val product = createProductItem("6", "MacBook", "123321", 1200.0, 0)
+
+    private val products:List<Product>
+        get() {
+             return getProductsFromBasketUseCase.invoke().toMutableList()
+        }
 
     private fun setData(){
         viewState.setProducts(products)
+        showTotalPrice()
     }
 
-    fun removeItem(product: ProductItem){
-        val position = products.indexOf(product)
-        products.removeAt(position)
-        viewState.removeProduct(position)
+    fun removeItem(pos: Int){
+        deleteProductFromItemUseCase(products[pos])
+        deleteProductFromBasketUseCase(products[pos])
+        showTotalPrice()
+        viewState.removeProduct(pos)
     }
 
-    fun addData(){
-        viewState.addProduct(product)
+    fun showTotalPrice(){
+        val checker = !products.isNullOrEmpty()
+        val totalPrice = products.sumBy { it.calcDiscountPrice() }.toString()
+        viewState.showTotalPrice(checker,totalPrice)
     }
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-        requestLaunch()
-
-    }
-
-    private suspend fun makeRequest(){
-        val remoteProducts = mainApi.allProducts()
-        val productItems = remoteProducts.map { remoteProduct ->
-            val productItem = createProductItem(
-                remoteProduct.id,
-                remoteProduct.name,
-                remoteProduct.imageUrl,
-                remoteProduct.price,
-                remoteProduct.discountPercent)
-            productItem
-        }.toMutableList()
-        products = productItems
-    }
-
-    fun requestLaunch () {
-        launch {
-            try {
-                makeRequest()
-                setData()
-            }
-            catch(e: UnknownHostException){
-                alertError("Ошибка подключения сети")
-            }
-        }
-    }
-
-    private fun alertError(msg:String){
-        viewState.showException(msg)
-    }
-
-    fun onProductClick(product: ProductItem) {
-        viewState.showProductDerailed(product)
+    fun onProductClick(product: Product) {
+        viewState.showProductDetailed(product)
     }
 
     override fun attachView(view: ProductsView?) {
         super.attachView(view)
         setData()
     }
+
 }

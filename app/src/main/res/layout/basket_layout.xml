@@ -1,146 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor">
+    android:alpha="1"
+    android:background="@color/MiddleGrey"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:background="@color/backgroundColor"
-        android:minHeight="700dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/basketHeader"
+        style="@style/Toolbar"
+        android:fallbackLineSpacing="false"
+        android:fontFamily="sans-serif-medium"
+        android:hapticFeedbackEnabled="false"
+        android:paddingTop="2dp"
+        android:textAlignment="viewStart"
+        android:textDirection="firstStrongRtl"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/basketHeader"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="#FFFFFF"
-            android:fallbackLineSpacing="false"
-            android:fontFamily="sans-serif-medium"
-            android:hapticFeedbackEnabled="false"
-            android:paddingStart="15dp"
-            android:paddingTop="2dp"
-            android:paddingEnd="15dp"
-            android:text="@string/basketHeader"
-            android:textAlignment="viewStart"
-            android:textColor="@color/backgroundColor"
-            android:textDirection="firstStrongRtl"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/checkout_header" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/checkout_header"
+        />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/backgroundColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/discount" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/totalPriceText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/discount" />
 
-        <ImageView
-            android:id="@+id/priceImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:contentDescription="@string/moneyIcon"
-            app:layout_constraintBottom_toBottomOf="@+id/productName"
-            app:layout_constraintStart_toEndOf="@+id/productName"
-            app:layout_constraintTop_toTopOf="@+id/productName"
-            app:layout_constraintVertical_bias="0.4"
-            app:srcCompat="@drawable/ic_money" />
+    <TextView
+        android:id="@+id/discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/discount"
+        android:textColor="@color/five_percent_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/price"
+        app:layout_constraintStart_toEndOf="@+id/price"
+        app:layout_constraintTop_toTopOf="@+id/price" />
 
-        <ImageView
-            android:id="@+id/discountImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/iconDiscount"
-            app:layout_constraintBottom_toBottomOf="@+id/price"
-            app:layout_constraintStart_toEndOf="@+id/price"
-            app:layout_constraintTop_toTopOf="@+id/price"
-            app:srcCompat="@drawable/ic_discount" />
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/price"
+        android:textColor="@color/five_percent_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/productName"
+        app:layout_constraintStart_toEndOf="@+id/productName"
+        app:layout_constraintTop_toTopOf="@+id/productName" />
 
-        <TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/discount"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/discountImage"
-            app:layout_constraintStart_toEndOf="@+id/discountImage"
-            app:layout_constraintTop_toTopOf="@+id/discountImage"
-            app:layout_constraintVertical_bias="0.6" />
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:ems="6"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/productName"
+        android:textColor="@color/five_percent_white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/basketHeader" />
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/price"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/priceImage"
-            app:layout_constraintStart_toEndOf="@+id/priceImage"
-            app:layout_constraintTop_toTopOf="@+id/priceImage" />
 
-        <TextView
-            android:id="@+id/productName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:ems="6"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/productName"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/basketHeader" />
-
-        <ImageView
-            android:id="@+id/addPv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="19dp"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="@+id/basketPayButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/basketPayButton"
-            app:layout_constraintTop_toTopOf="@+id/basketPayButton"
-            tools:ignore="ContentDescription">
-
-        </ImageView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBasketPaybtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        app:cardBackgroundColor="@color/MiddleGrey02dp"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/basketPayButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
-            android:background="#000000"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
+            style="@style/Button"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
             android:text="@string/basketPayButton"
-            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/recyclerView"
             app:layout_constraintStart_toStartOf="parent" />
+    </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/totalPriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/resultPrice"
+        android:textColor="@color/eight_percent_white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardBasketPaybtn"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        android:text="TextView"
+        android:textColor="@color/eight_percent_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalPriceText"
+        app:layout_constraintEnd_toStartOf="@+id/moneyType"
+        app:layout_constraintTop_toTopOf="@+id/totalPriceText"
+        app:layout_constraintVertical_bias="0.0" />
 
-</ScrollView>
+    <TextView
+        android:id="@+id/moneyType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="@string/moneyType"
+        android:visibility="gone"
+        android:textColor="@color/eight_percent_white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/totalPrice" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+

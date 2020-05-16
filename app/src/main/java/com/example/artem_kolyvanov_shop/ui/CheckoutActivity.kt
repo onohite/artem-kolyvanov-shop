@@ -1,47 +1,44 @@
 package com.example.artem_kolyvanov_shop.ui
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import com.example.artem_kolyvanov_shop.App
 import com.example.artem_kolyvanov_shop.R
-import com.example.artem_kolyvanov_shop.ui.CatalogActivity.Companion.IS_USER_AUTH
-import com.example.artem_kolyvanov_shop.ui.CatalogActivity.Companion.PRODUCT_ID
 import com.example.artem_kolyvanov_shop.presenter.CheckOutPresenter
-import com.example.artem_kolyvanov_shop.presenter.CheckoutView
+import com.example.artem_kolyvanov_shop.presenter.view.CheckoutView
 import com.example.myapplication.ui.BaseActivity
 import kotlinx.android.synthetic.main.order_layout.*
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 
-class CheckoutActivity:BaseActivity(),
+class CheckoutActivity:BaseActivity(R.layout.order_layout),
     CheckoutView {
 
-    private val presenter by moxyPresenter {   CheckOutPresenter()}
-    private var isAuth: Boolean = false
+    @Inject
+    lateinit var checkOutPresenter:CheckOutPresenter
+
+    private val presenter by moxyPresenter {checkOutPresenter}
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.order_layout)
         setSupportActionBar(findViewById(R.id.orderHeader))
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.elevation = 30F
         supportActionBar?.title = "Оформление заказа"
         setListeners()
-
-        val productId = intent.extras?.getInt(PRODUCT_ID, -1)
-        Log.d(tag, productId.toString())
+        presenter.setData()
         checkoutPayButton.setOnClickListener {
-            isAuth = true
-            setResult(Activity.RESULT_OK, Intent().apply {
-                putExtra(IS_USER_AUTH, isAuth)
-            })
+            presenter.launchRequest()
         }
 
-
+        radioGroup.setOnCheckedChangeListener { group , checkedId -> presenter.setPaymentType(checkedId) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,6 +47,7 @@ class CheckoutActivity:BaseActivity(),
         }
         return true
     }
+
 
     private fun setListeners() {
         checkoutLastName.addTextChangedListener(object : TextWatcher {
@@ -96,6 +94,32 @@ class CheckoutActivity:BaseActivity(),
 
     override fun showErrorForPhoneNumber(visible: Boolean) {
         phoneNumber.showError(visible)
+    }
+
+    override fun showTotalPrice(visible: Boolean,price:String) {
+        totalPriceView.text = price
+        if (visible){
+            textTotalPrice.visibility = View.VISIBLE
+            totalPriceView.visibility = View.VISIBLE
+            moneyType.visibility = View.VISIBLE
+        }
+        else {
+            textTotalPrice.visibility = View.GONE
+            totalPriceView.visibility = View.GONE
+            moneyType.visibility = View.GONE
+        }
+
+    }
+
+    override fun alertMsg(msg: String) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun clearOrder() {
+        checkoutFirstName.text = null
+        checkoutLastName.text = null
+        phoneNumber.text = null
+        radioGroup.clearCheck()
     }
 
     override fun showErrorForLastName(visible: Boolean) {

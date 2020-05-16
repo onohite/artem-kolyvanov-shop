@@ -8,4 +8,19 @@
     <color name="payButtonColor">#12A56A</color>
     <color name="white">#FFFFFF</color>
     <color name="backgroundColor">#FFFFFF</color>
+    <color name="DarkGrey">#121212</color>
+    <color name="Purple200">#ce93d8</color>
+    <color name="Purple200shadow">#88000000</color>
+    <color name="MiddleGrey01dp">#212121</color>
+    <color name="MiddleGrey02dp">#303030</color>
+    <color name="MiddleGrey02dp_shadow">#575454</color>
+    <color name="MiddleGrey03dp">#424242</color>
+    <color name="MiddleGrey">#121212</color>
+    <color name="seven_percent_white">#EDFFFFFF</color>
+    <color name="eight_percent_white">#EBFFFFFF</color>
+    <color name="eleven_percent_white">#E3FFFFFF</color>
+    <color name="fifteen_percent_white">#D9FFFFFF</color>
+    <color name="twelve_percent_white">#CCFFFFFF</color>
+    <color name="five_percent_white">#F2FFFFFF</color>
+    <color name="fifty_percent_white">#80FFFFFF</color>
 </resources>
